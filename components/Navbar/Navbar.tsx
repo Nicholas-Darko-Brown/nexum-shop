@@ -17,12 +17,12 @@ const Navbar = () => {
 
   return (
     <div className="w-full">
-      <div className="flex justify-between items-center my-3 w-[88%] mx-auto sm:w-10/12 sm:mx-auto">
+      <div className="flex justify-between items-center my-3 w-[88%] mx-auto md:w-10/12 md:mx-auto">
         <div className="">
           <Image src={BlackLogo} width={150} alt="logo" />
         </div>
 
-        <div className="relative hidden sm:block">
+        <div className="relative hidden md:block">
           <CustomInputField
             className="border border-gray-400 rounded-sm pl-2 pr-6 py-1 relative w-72"
             placeholder="Search (keywords,brands,etc)"
@@ -50,14 +50,14 @@ const Navbar = () => {
           {/* Large screen login */}
           <div className="">
             <CustomButton
-              className="hidden  text-gray-500 sm:flex items-center gap-1"
+              className="hidden text-gray-500 hover:text-black md:flex items-center gap-1"
               type="button"
             >
               <FaUserCircle /> Login
             </CustomButton>
           </div>
           {/* Mobile Menu */}
-          <div className="block sm:hidden">
+          <div className="block md:hidden">
             <CustomButton onClick={handleShowMenu} className="" type="button">
               {!showMenu ? (
                 <MdMenu color="gray" size={30} />
@@ -69,14 +69,21 @@ const Navbar = () => {
         </div>
       </div>
       {showMenu && (
-        <div className={`${showMenu ? "sm:hidden" : "block"}`}>
-          <ul className="absolute z-10 right-7  bg-white border rounded shadow-sm w-[40%] pl-4 py-2">
+        <div className={`${showMenu ? "md:hidden" : "block"}`}>
+          <ul className="absolute z-10 right-7  bg-white border rounded shadow-sm w-[30%] pl-4 py-2">
+            <li className="hover:font-bold cursor-pointer">Home</li>
+            <li className="hover:font-bold cursor-pointer">New Arrivals</li>
+            <li className="hover:font-bold cursor-pointer">Food</li>
+            <li className="hover:font-bold cursor-pointer">Cosmetics</li>
+            <li className="hover:font-bold cursor-pointer">Top Deals</li>
+            <li className="hover:font-bold cursor-pointer">Best Sellers</li>
+            <hr />
             <li>
               <LanguageSwitcher />
             </li>
             <li className="pt-2">
               <CustomButton
-                className="text-gray-500 flex items-center gap-1"
+                className="text-gray-500 flex items-center gap-1 hover:text-black"
                 type="button"
               >
                 <FaUserCircle /> Login
@@ -86,7 +93,7 @@ const Navbar = () => {
         </div>
       )}
       {/* Mobile Input */}
-      <div className="relative block w-full sm:hidden">
+      <div className="relative block w-full md:hidden">
         <CustomInputField
           className="border border-black rounded-sm pl-2 pr-6 py-1 relative w-full"
           placeholder="Search (keywords,brands,etc)"
