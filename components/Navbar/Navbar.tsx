@@ -7,19 +7,30 @@ import LanguageSwitcher from "../Forms/LanguageSwitcher";
 import { RiShoppingBagFill } from "react-icons/ri";
 import CustomButton from "../Buttons/CustomButton";
 import { FaUserCircle } from "react-icons/fa";
+import Link from "next/link";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const Navbar = () => {
+  const { user, isLoading } = useUser();
+  console.log("user", user);
   const [showMenu, setShowMenu] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   const handleShowMenu = () => {
     setShowMenu(!showMenu);
+  };
+
+  const handleShowProfile = () => {
+    setShowProfile(!showProfile);
   };
 
   return (
     <div className="w-full">
       <div className="flex justify-between items-center my-3 w-[88%] mx-auto md:w-10/12 md:mx-auto">
         <div className="">
-          <Image src={BlackLogo} width={150} alt="logo" />
+          <Link href="/">
+            <Image src={BlackLogo} width={150} alt="logo" />
+          </Link>
         </div>
 
         <div className="relative hidden md:block">
@@ -49,12 +60,42 @@ const Navbar = () => {
           </div>
           {/* Large screen login */}
           <div className="">
-            <CustomButton
-              className="hidden text-gray-500 hover:text-black md:flex items-center gap-1"
-              type="button"
-            >
-              <FaUserCircle /> Login
-            </CustomButton>
+            {!isLoading && !user && (
+              <Link href={"/login"}>
+                <CustomButton
+                  className="hidden text-gray-500 hover:text-black md:flex items-center gap-1"
+                  type="button"
+                >
+                  <FaUserCircle /> Login
+                </CustomButton>
+              </Link>
+            )}
+            {user && (
+              <div className="relative">
+                <Image
+                  onClick={handleShowProfile}
+                  src={user.picture!}
+                  width={40}
+                  height={40}
+                  className="object-cover rounded-full shadow cursor-pointer relative"
+                  alt={""}
+                />
+                {showProfile && (
+                  <div className="absolute z-20 right-2 bg-white shadow rounded p-2">
+                    <ul className="space-y-2">
+                      {/* <li>{user.name}</li> */}
+                      <li className="font-medium cursor-pointer">
+                        {user.email}
+                      </li>
+                      <hr />
+                      <Link href="/api/auth/logout">
+                        <li className="cursor-pointer">Logout</li>
+                      </Link>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           {/* Mobile Menu */}
           <div className="block md:hidden">
@@ -70,8 +111,10 @@ const Navbar = () => {
       </div>
       {showMenu && (
         <div className={`${showMenu ? "md:hidden" : "block"}`}>
-          <ul className="absolute z-10 right-7  bg-white border rounded shadow-sm w-[30%] pl-4 py-2">
-            <li className="hover:font-bold cursor-pointer">Home</li>
+          <ul className="absolute z-10 right-7  bg-white border rounded shadow-sm w-[30%] pl-4 py-2 space-y-1">
+            <Link onClick={handleShowMenu} href="/">
+              <li className="hover:font-bold cursor-pointer">Home</li>
+            </Link>
             <li className="hover:font-bold cursor-pointer">New Arrivals</li>
             <li className="hover:font-bold cursor-pointer">Food</li>
             <li className="hover:font-bold cursor-pointer">Cosmetics</li>
@@ -81,13 +124,15 @@ const Navbar = () => {
             <li>
               <LanguageSwitcher />
             </li>
-            <li className="pt-2">
-              <CustomButton
-                className="text-gray-500 flex items-center gap-1 hover:text-black"
-                type="button"
-              >
-                <FaUserCircle /> Login
-              </CustomButton>
+            <li onClick={handleShowMenu} className="">
+              <Link href="/login">
+                <CustomButton
+                  className="text-gray-500 flex items-center gap-1 hover:text-black"
+                  type="button"
+                >
+                  <FaUserCircle /> Login
+                </CustomButton>
+              </Link>
             </li>
           </ul>
         </div>
