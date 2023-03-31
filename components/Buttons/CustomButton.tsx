@@ -3,7 +3,7 @@ import React from 'react'
 type ButtonType = "submit" | "button"
 
 interface Props extends React.PropsWithChildren<React.ComponentPropsWithoutRef<"button">> {
-    text?: string
+    text?: React.ReactNode
     className: string
     type: ButtonType
 }

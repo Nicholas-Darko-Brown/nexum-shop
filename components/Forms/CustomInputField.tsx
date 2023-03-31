@@ -1,12 +1,12 @@
 import React from "react";
 
-type InputType = "search" | "text" | "email";
+type InputType = "search" | "text" | "email" | "password";
 
 interface Props extends React.ComponentPropsWithoutRef<"input"> {
   className?: string;
   placeholder?: string;
   type?: InputType;
-  label?: string;
+  label?: React.ReactNode;
   error?: string;
 }
 
@@ -27,7 +27,7 @@ const CustomInputField = ({
         placeholder={placeholder}
         type={type}
       />
-      {error ? <small> {error} </small> : null}
+      {error ? <small className="text-red-600"> {error} </small> : null}
     </>
   );
 };

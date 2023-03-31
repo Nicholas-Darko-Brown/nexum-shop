@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.selectedTabClassName {
+    border-bottom: 4px solid black;
+}
+.selectedClassName {
+    border-bottom: 4px solid black;
+}
+.selectedClassName:focus {
+    border-bottom: 4px solid black;
+}
