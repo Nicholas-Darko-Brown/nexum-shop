@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Login Tabs */
 .selectedTabClassName {
     border-bottom: 4px solid black;
 }
@@ -10,4 +11,19 @@
 }
 .selectedClassName:focus {
     border-bottom: 4px solid black;
+}
+
+/* Hero Carousel */
+div.swiper {
+    position: relative
+}
+div.swiper-button-prev,
+div.swiper-button-next {
+    color: black;
+}
+span.swiper-pagination-bullet  {
+    width: 40px;
+    height: 7px;
+    border-radius: 0;
+    background-color: black;
 }
