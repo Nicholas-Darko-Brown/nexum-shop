@@ -1,9 +1,8 @@
 import React from 'react'
 import Banner from '../Banner/Banner'
-import Hero from '../Hero/Hero'
+import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
 import Navlink from '../Navlinks/Navlink'
-import ProductSection from '../ProductSection/ProductSection'
 
 interface ILayoutProps {
   children: React.ReactNode
@@ -15,9 +14,8 @@ const Layout = ({ children }: ILayoutProps) => {
         <Banner />
         <Navbar />
         <Navlink />
-        <Hero />
-        <ProductSection />
         <main> {children} </main>
+        <Footer />
     </>
   )
 }

@@ -8,7 +8,7 @@ import Image from "next/image";
 const ProductSection = () => {
   return (
     <div className="w-full my-8">
-      <div className="w-[88%] mx-auto h-[100vh] grid grid-cols-1 sm:w-10/12 sm:grid-cols-2 sm:h-[100vh] sm:mx-auto sm:grid-rows-2 gap-1 lg:grid-cols-3 lg:grid-rows-2">
+      <div className="w-[88%] mx-auto min-h-[100vh] grid grid-cols-1 sm:w-10/12 sm:grid-cols-2 sm:h-[100vh] sm:mx-auto sm:grid-rows-2 gap-1 lg:grid-cols-3 lg:grid-rows-2">
         <div className="col-span-1 relative cursor-pointer">
           <Image
             src={FruitJuiceImage}

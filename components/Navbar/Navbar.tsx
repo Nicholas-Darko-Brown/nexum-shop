@@ -12,7 +12,6 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 const Navbar = () => {
   const { user, isLoading } = useUser();
-  console.log("user", user);
   const [showMenu, setShowMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 
