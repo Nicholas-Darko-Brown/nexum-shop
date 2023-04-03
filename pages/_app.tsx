@@ -5,6 +5,7 @@ import Layout from "@/components/Layout/Layout";
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const inter = Inter({
   weight: ["200", "400", "700", "900"],
@@ -16,16 +17,19 @@ interface Props {
 }
 
 function MyApp({ Component, pageProps }: AppProps, { session }: Props) {
+  const queryClient = new QueryClient();
   return (
-    <UserProvider>
-      <SessionProvider session={session}>
-        <Layout>
-          <main className={inter.className}>
-            <Component {...pageProps} />
-          </main>
-        </Layout>
-      </SessionProvider>
-    </UserProvider>
+    <QueryClientProvider client={queryClient}>
+      <UserProvider>
+        <SessionProvider session={session}>
+          <Layout>
+            <main className={inter.className}>
+              <Component {...pageProps} />
+            </main>
+          </Layout>
+        </SessionProvider>
+      </UserProvider>
+    </QueryClientProvider>
   );
 }
 

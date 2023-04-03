@@ -13,8 +13,6 @@ import Link from "next/link";
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { data: session } = useSession();
-  const showToast = useToast();
-  console.log("session", session);
 
   const {
     control,
@@ -36,9 +34,7 @@ const LoginForm = () => {
     });
 
     if (response?.status === 200 && response.ok) {
-      console.log("success login", response);
     } else {
-      console.log("login failed", response?.error);
     }
   };
 
