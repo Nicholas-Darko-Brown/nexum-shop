@@ -70,7 +70,7 @@ const Navbar = () => {
               </Link>
             )}
             {user && (
-              <div className="relative">
+              <div className="relative hidden md:block">
                 <Image
                   onClick={handleShowProfile}
                   src={user.picture!}
@@ -110,7 +110,7 @@ const Navbar = () => {
       </div>
       {showMenu && (
         <div className={`${showMenu ? "md:hidden" : "block"}`}>
-          <ul className="absolute z-10 right-7  bg-white border rounded shadow-sm w-[30%] pl-4 py-2 space-y-1">
+          <ul className="absolute z-10 right-7  bg-white border rounded shadow-sm w-[50%] p-2 space-y-1">
             <Link onClick={handleShowMenu} href="/">
               <li className="hover:font-bold cursor-pointer">Home</li>
             </Link>
@@ -123,15 +123,27 @@ const Navbar = () => {
             <li>
               <LanguageSwitcher />
             </li>
+            <hr />
             <li onClick={handleShowMenu} className="">
-              <Link href="/login">
-                <CustomButton
-                  className="text-gray-500 flex items-center gap-1 hover:text-black"
-                  type="button"
-                >
-                  <FaUserCircle /> Login
-                </CustomButton>
-              </Link>
+              {!isLoading && !user && (
+                <Link href="/login">
+                  <CustomButton
+                    className="text-gray-500 flex items-center gap-1 hover:text-black"
+                    type="button"
+                  >
+                    <FaUserCircle /> Login
+                  </CustomButton>
+                </Link>
+              )}
+              {user && (
+                <div className="relative">
+                  <span className="font-medium">{user.name}</span>
+                  <hr />
+                  <Link href="/api/auth/logout">
+                    <li className="cursor-pointer">Logout</li>
+                  </Link>
+                </div>
+              )}
             </li>
           </ul>
         </div>

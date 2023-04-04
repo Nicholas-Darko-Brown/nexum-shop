@@ -6,7 +6,7 @@ export const useFetchCategories = () => {
         queryKey: ["nav-categories"],
         queryFn: () => FetchCategories(),
         onError: (error) => {
-            console.log("nav links error", error)
+            console.error("Error fetching categories:", error);
         }
     })
 

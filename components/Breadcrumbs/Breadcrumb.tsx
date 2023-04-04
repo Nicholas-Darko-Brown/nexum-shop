@@ -3,9 +3,9 @@ import React from "react";
 
 const Breadcrumb = () => {
   const router = useRouter();
-  const pathname = router.pathname;
+  const pathname = router.query.custom_category as string;
   const formattedPathname =
-    pathname.charAt(1).toUpperCase() + pathname.slice(2);
+    pathname?.charAt(0).toUpperCase() + pathname?.slice(1);
 
   return (
     <div>
