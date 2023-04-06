@@ -9,7 +9,7 @@ const Navlink = () => {
     <>
       <nav className="bg-black text-neutral-300 hidden md:block">
         <ul className="flex gap-5 w-[88%] py-3 sm:w-10/12 mx-auto">
-          {data?.elements.slice(1).map((category) => (
+          {data?.elements.slice(1, -4).map((category) => (
             <li key={category.id} className="hover:text-white hover:underline sm:text-[12px] lg:text-sm">
               <Link href={`/product/${category.name.toLowerCase()}`}>
               {category.name}

@@ -6,6 +6,8 @@ import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { Provider } from "jotai";
 
 const inter = Inter({
   weight: ["200", "400", "700", "900"],
@@ -18,18 +20,23 @@ interface Props {
 
 function MyApp({ Component, pageProps }: AppProps, { session }: Props) {
   const queryClient = new QueryClient();
+  useEffect(() => {
+    import("preline");
+  }, []);
   return (
-    <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        <SessionProvider session={session}>
-          <Layout>
-            <main className={inter.className}>
-              <Component {...pageProps} />
-            </main>
-          </Layout>
-        </SessionProvider>
-      </UserProvider>
-    </QueryClientProvider>
+    <Provider>
+      <QueryClientProvider client={queryClient}>
+        <UserProvider>
+          <SessionProvider session={session}>
+            <Layout>
+              <main className={inter.className}>
+                <Component {...pageProps} />
+              </main>
+            </Layout>
+          </SessionProvider>
+        </UserProvider>
+      </QueryClientProvider>
+    </Provider>
   );
 }
 
