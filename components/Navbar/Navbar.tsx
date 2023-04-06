@@ -9,11 +9,16 @@ import CustomButton from "../Buttons/CustomButton";
 import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { useAtom } from "jotai";
+import { cartAtom } from "../Layouts/CustomListingPage";
+import {BsTrash} from "react-icons/bs"
 
 const Navbar = () => {
+  const [cartItems, setCartItems] = useAtom(cartAtom)
   const { user, isLoading } = useUser();
   const [showMenu, setShowMenu] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showCart, setShowCart] = useState(false);
 
   const handleShowMenu = () => {
     setShowMenu(!showMenu);
@@ -22,6 +27,19 @@ const Navbar = () => {
   const handleShowProfile = () => {
     setShowProfile(!showProfile);
   };
+
+  const handleShowCart = () => {
+    setShowCart(!showCart);
+  };
+
+  const handleRemoveItem = (id: string) => {
+    const filteredItem = cartItems.filter((cartItem) => cartItem.id !== id)
+    setCartItems(filteredItem)
+  }
+
+  const handleRemoveAllItems = () => {
+    setCartItems([])
+  }
 
   return (
     <div className="w-full">
@@ -49,13 +67,58 @@ const Navbar = () => {
             <LanguageSwitcher />
           </div>
 
-          <div className="mr-5 relative">
-            <CustomButton className="relative" type="button">
+          <div className="mr-5 relative w-full">
+            <CustomButton
+              onClick={handleShowCart}
+              className="relative"
+              type="button"
+            >
               <RiShoppingBagFill size={25} color="gray" />
               <span className="absolute left-4 top-[0%] bg-color-main-100 w-4 h-4 text-[11px] flex justify-center items-center text-white rounded-full">
                 0
               </span>
             </CustomButton>
+
+            {showCart && <div className="z-50 absolute h-[60vh] overflow-y-auto right-0 bg-white w-96 border rounded shadow">
+                <div className="m-3">
+                  <h2 className="text-lg">Your shopping cart</h2>
+                <div className="border-b pb-2 flex justify-between">
+                  <span className="font-light"> {cartItems.length} {cartItems.length === 0 || cartItems.length === 1 ? "item" : "items"} in your cart.</span>
+                  <button onClick={handleRemoveAllItems} className="text-red-600 flex gap-1 px-2 py-1 rounded items-center bg-red-100"><BsTrash /> Remove all</button>
+                </div>
+                </div>
+                {cartItems.length === 0 ? <h1 className="font-light text-2xl text-center">No items in cart</h1> : 
+                <div className="p-3">
+                  {cartItems.map(item => (
+                    <div key={item.id} className="w-full px-3 py-2 border mb-2 shadow rounded">
+                      <div className="flex justify-between items-center">
+
+                      <h3 className="text-lg font-medium pb-2">{item.name}</h3>
+                      <div className="cursor-pointer text-red-600 bg-red-100 h-fit rounded">
+                          <MdClose size={25} onClick={() => handleRemoveItem(item.id)} />
+                        </div>
+                      </div>
+                      {/* image & quantity */}
+                      <div className="flex justify-between">
+                        <div className="flex space-x-2">
+                        <div className="bg-color-main-200 rounded">
+                          <img src={item.image} className="w-32 h-40 object-cover" alt={item.name} />
+                        </div>
+                        <div className="">
+                          <p>Quantity: {item.quantity}</p>
+                      <div className="">
+                        <span className="font-bold text-lg text-color-main-100">${(item.price)*(item.quantity)}</span>
+                      </div>
+                        </div>
+                        </div>
+
+                      </div>
+                      {/* price */}
+                    </div>
+                  ))}
+                </div>
+}
+              </div>}
           </div>
           {/* Large screen login */}
           <div className="">

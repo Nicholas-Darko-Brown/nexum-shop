@@ -12,6 +12,10 @@ export interface IProducts {
     cover: {
       media: {
         url: string;
+        thumbnails: {
+          id: string
+          url: string
+        }[]
       };
     };
     calculatedPrice: {
@@ -31,4 +35,22 @@ export interface ICategoryNames {
 
 export interface ICustomListingPageProps {
   category: string
+}
+
+export interface IProduct {
+  id: string;
+  name: string;
+  stock: number;
+  calculatedPrice: {
+    totalPrice: number;
+  };
+  cover: {
+    media: {
+      url: string;
+      thumbnails: {
+        id: string
+        url: string
+      }[]
+    };
+  };
 }

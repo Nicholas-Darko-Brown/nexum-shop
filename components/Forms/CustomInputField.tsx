@@ -1,6 +1,6 @@
 import React from "react";
 
-type InputType = "search" | "text" | "email" | "password";
+type InputType = "search" | "text" | "email" | "password" | "number";
 
 interface Props extends React.ComponentPropsWithoutRef<"input"> {
   className?: string;

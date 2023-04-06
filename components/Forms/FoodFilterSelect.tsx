@@ -1,8 +1,12 @@
 import React from "react";
 import CustomButton from "../Buttons/CustomButton";
 import CustomCheckbox from "./CustomCheckbox";
+import { useRouter } from "next/router";
 
 const FoodFilter = () => {
+  const router = useRouter();
+  const foodCategory = router.asPath.includes("food");
+  const getCategoryPath = router.asPath.includes("food" || "cosmetics");
   return (
     <>
       <form className="w-full">
@@ -23,24 +27,26 @@ const FoodFilter = () => {
           />
         </div>
 
-        <div className="border border-black w-full py-2 rounded my-4">
-          <h3 className="font-semibold pl-2 pb-2">Category</h3>
-          <hr />
-          <div className="pl-5 pt-2 space-y-2">
-            <CustomCheckbox
-              label="Fruit Juice"
-              id="fruit juice"
-              type="radio"
-              name="category"              
-            />
-            <CustomCheckbox
-              label="Wines"
-              id="wines"
-              type="radio"
-              name="category"
-            />
+        {getCategoryPath && (
+          <div className="border border-black w-full py-2 rounded my-4">
+            <h3 className="font-semibold pl-2 pb-2">Category</h3>
+            <hr />
+            <div className="pl-5 pt-2 space-y-2">
+              <CustomCheckbox
+                label={foodCategory ? "Fruit Juice" : "Cream & Lotion"}
+                id="fruit juice"
+                type="radio"
+                name="category"
+              />
+              <CustomCheckbox
+                label={foodCategory ? "Wines" : "Perfume"}
+                id="wines"
+                type="radio"
+                name="category"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="border border-black w-full py-2 rounded mt-4">
           <h3 className="font-semibold pl-2 pb-2">Price</h3>
@@ -50,7 +56,7 @@ const FoodFilter = () => {
               label="$0 - $19.99"
               id="low"
               type="radio"
-              name="price"              
+              name="price"
             />
             <CustomCheckbox
               label="$20 - $49.99"
@@ -62,7 +68,7 @@ const FoodFilter = () => {
               label="$50 - $99.99"
               id="high"
               type="radio"
-              name="price"              
+              name="price"
             />
             <CustomCheckbox
               label="$100 - $499.99"
